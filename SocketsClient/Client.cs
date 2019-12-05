@@ -44,6 +44,7 @@ namespace Sockets
                 int Port = 1010;                                // номер порта, через который выполняется обмен сообщениями
                 IPAddress IP = IPAddress.Parse(tbIP.Text);      // разбор IP-адреса сервера, указанного в поле tbIP
                 Client.Connect(IP, Port);                       // подключение к серверному сокету
+                send(IP.ToString() + " << " + tbName.Text);
                 btnConnect.Enabled = false;
                 btnSend.Enabled = true;
             }
@@ -56,7 +57,12 @@ namespace Sockets
         // отправка сообщения
         private void btnSend_Click(object sender, EventArgs e)
         {
-            byte[] buff = Encoding.Unicode.GetBytes(IP.ToString() + " >> " + tbMessage.Text);   // выполняем преобразование сообщения (вместе с идентификатором машины) в последовательность байт
+            send(IP.ToString() + " >> " + tbMessage.Text);   
+        }
+
+        private void send(string msg)
+        {
+            byte[] buff = Encoding.Unicode.GetBytes(msg);   // выполняем преобразование сообщения (вместе с идентификатором машины) в последовательность байт
             Stream stm = Client.GetStream();                                                    // получаем файловый поток клиентского сокета
             stm.Write(buff, 0, buff.Length);                                                    // выполняем запись последовательности байт
         }

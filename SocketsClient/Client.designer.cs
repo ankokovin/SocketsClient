@@ -34,12 +34,14 @@
             this.btnConnect = new System.Windows.Forms.Button();
             this.lblMessage = new System.Windows.Forms.Label();
             this.tbIP = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnSend
             // 
             this.btnSend.Enabled = false;
-            this.btnSend.Location = new System.Drawing.Point(263, 44);
+            this.btnSend.Location = new System.Drawing.Point(263, 109);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(91, 26);
             this.btnSend.TabIndex = 3;
@@ -49,7 +51,7 @@
             // 
             // tbMessage
             // 
-            this.tbMessage.Location = new System.Drawing.Point(75, 48);
+            this.tbMessage.Location = new System.Drawing.Point(75, 113);
             this.tbMessage.Name = "tbMessage";
             this.tbMessage.Size = new System.Drawing.Size(181, 20);
             this.tbMessage.TabIndex = 1;
@@ -67,7 +69,7 @@
             // 
             this.btnConnect.Location = new System.Drawing.Point(263, 6);
             this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(91, 26);
+            this.btnConnect.Size = new System.Drawing.Size(91, 67);
             this.btnConnect.TabIndex = 2;
             this.btnConnect.Text = "Подключиться";
             this.btnConnect.UseVisualStyleBackColor = true;
@@ -76,7 +78,7 @@
             // lblMessage
             // 
             this.lblMessage.AutoSize = true;
-            this.lblMessage.Location = new System.Drawing.Point(7, 51);
+            this.lblMessage.Location = new System.Drawing.Point(7, 116);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(65, 13);
             this.lblMessage.TabIndex = 2;
@@ -90,12 +92,30 @@
             this.tbIP.TabIndex = 0;
             this.tbIP.Text = "127.0.0.1";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 56);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 26);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Введите \r\nникнейм";
+            // 
+            // tbName
+            // 
+            this.tbName.Location = new System.Drawing.Point(75, 53);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(181, 20);
+            this.tbName.TabIndex = 0;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(363, 85);
+            this.ClientSize = new System.Drawing.Size(363, 162);
+            this.Controls.Add(this.tbName);
             this.Controls.Add(this.tbIP);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.lblIP);
             this.Controls.Add(this.tbMessage);
@@ -118,6 +138,8 @@
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Label lblMessage;
         private System.Windows.Forms.TextBox tbIP;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tbName;
     }
 }
 
