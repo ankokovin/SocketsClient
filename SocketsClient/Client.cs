@@ -143,8 +143,8 @@ namespace Sockets
         {
             cbServerIp.Items.Clear();
             Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            IPAddress broadcast = IPAddress.Parse("10.0.129.255");
-            byte[] sendbuf = Encoding.ASCII.GetBytes(IP.ToString());
+            IPAddress broadcast = IPAddress.Parse("10.129.0.255");
+            byte[] sendbuf = Encoding.Unicode.GetBytes(IP.ToString());
             IPEndPoint ep = new IPEndPoint(broadcast, serverUdpPort);
             s.SendTo(sendbuf, ep);
             btnConnect.Enabled = true;
