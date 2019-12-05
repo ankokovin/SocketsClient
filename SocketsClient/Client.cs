@@ -82,8 +82,8 @@ namespace Sockets
             try
             {
                 int Port = 1010;                                // номер порта, через который выполняется обмен сообщениями
-                IPAddress IP = IPAddress.Parse(tbIP.Text);      // разбор IP-адреса сервера, указанного в поле tbIP
-                Client.Connect(IP, Port);                       // подключение к серверному сокету
+                IPAddress sIP = IPAddress.Parse(tbIP.Text);      // разбор IP-адреса сервера, указанного в поле tbIP
+                Client.Connect(sIP, Port);                       // подключение к серверному сокету
                 send(IP.ToString() + " << " + tbName.Text);
                 btnConnect.Enabled = false;
                 btnSend.Enabled = true;
