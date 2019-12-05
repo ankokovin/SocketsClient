@@ -36,12 +36,13 @@
             this.tbIP = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbName = new System.Windows.Forms.TextBox();
+            this.rtbMessages = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // btnSend
             // 
             this.btnSend.Enabled = false;
-            this.btnSend.Location = new System.Drawing.Point(263, 109);
+            this.btnSend.Location = new System.Drawing.Point(260, 90);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(91, 26);
             this.btnSend.TabIndex = 3;
@@ -51,7 +52,7 @@
             // 
             // tbMessage
             // 
-            this.tbMessage.Location = new System.Drawing.Point(75, 113);
+            this.tbMessage.Location = new System.Drawing.Point(72, 94);
             this.tbMessage.Name = "tbMessage";
             this.tbMessage.Size = new System.Drawing.Size(181, 20);
             this.tbMessage.TabIndex = 1;
@@ -78,7 +79,7 @@
             // lblMessage
             // 
             this.lblMessage.AutoSize = true;
-            this.lblMessage.Location = new System.Drawing.Point(7, 116);
+            this.lblMessage.Location = new System.Drawing.Point(4, 97);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(65, 13);
             this.lblMessage.TabIndex = 2;
@@ -108,11 +109,20 @@
             this.tbName.Size = new System.Drawing.Size(181, 20);
             this.tbName.TabIndex = 0;
             // 
+            // rtbMessages
+            // 
+            this.rtbMessages.Location = new System.Drawing.Point(7, 120);
+            this.rtbMessages.Name = "rtbMessages";
+            this.rtbMessages.Size = new System.Drawing.Size(344, 194);
+            this.rtbMessages.TabIndex = 4;
+            this.rtbMessages.Text = "";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(363, 162);
+            this.ClientSize = new System.Drawing.Size(363, 326);
+            this.Controls.Add(this.rtbMessages);
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.tbIP);
             this.Controls.Add(this.label1);
@@ -140,6 +150,7 @@
         private System.Windows.Forms.TextBox tbIP;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbName;
+        private System.Windows.Forms.RichTextBox rtbMessages;
     }
 }
 

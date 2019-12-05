@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
 using System.IO;
+using System.Threading;
 
 namespace Sockets
 {
@@ -16,7 +17,10 @@ namespace Sockets
     {
         private TcpClient Client = new TcpClient();     // клиентский сокет
         private IPAddress IP;                           // IP-адрес клиента
-
+        private TcpListener Listener;                   // сокет сервера
+        private List<Thread> Threads = new List<Thread>();      // список потоков приложения (кроме родительского)
+        private bool _continue = true;                          // флаг, указывающий продолжается ли работа с сокетами
+        private Socket ServerSocket;
         // конструктор формы
         public frmMain()
         {
@@ -24,7 +28,7 @@ namespace Sockets
 
             IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName());    // информация об IP-адресах и имени машины, на которой запущено приложение
             IP = hostEntry.AddressList[0];                                  // IP-адрес, который будет указан в заголовке окна для идентификации клиента
-
+            int Port = 1011;
             // определяем IP-адрес машины в формате IPv4
             foreach (IPAddress address in hostEntry.AddressList)
                 if (address.AddressFamily == AddressFamily.InterNetwork)
@@ -34,6 +38,42 @@ namespace Sockets
                 }
 
             this.Text += "     " + IP.ToString();                           // выводим IP-адрес текущей машины в заголовок формы
+            Listener = new TcpListener(IP, Port);
+            Listener.Start();
+            // создаем и запускаем поток, выполняющий обслуживание клиентского сокета
+            Threads.Clear();
+            Threads.Add(new Thread(ReceiveMessage));
+            Threads[Threads.Count - 1].Start();
+        }
+        // работа с клиентскими сокетами
+        private void ReceiveMessage()
+        {
+            // входим в бесконечный цикл для работы с серверным сокетом
+            while (_continue)
+            {
+                ServerSocket = Listener.AcceptSocket();           // получаем ссылку на очередной серверный сокет
+                Threads.Add(new Thread(ReadMessages));          // создаем и запускаем поток, обслуживающий конкретный серверный сокет
+                Threads[Threads.Count - 1].Start(ServerSocket);
+            }
+        }
+
+        private void ReadMessages(object ServerSock)
+        {
+            string msg = "";        // полученное сообщение
+
+            // входим в бесконечный цикл для работы с клиентским сокетом
+            while (_continue)
+            {
+                byte[] buff = new byte[1024];                           // буфер прочитанных из сокета байтов
+                ((Socket)ServerSock).Receive(buff);                     // получаем последовательность байтов из сокета в буфер buff
+                msg = System.Text.Encoding.Unicode.GetString(buff);     // выполняем преобразование байтов в последовательность символов
+                rtbMessages.Invoke((MethodInvoker)delegate
+                {
+                    if (msg.Replace("\0", "") != "")
+                        rtbMessages.Text += "\n >> " + msg;             // выводим полученное сообщение на форму
+                });
+                Thread.Sleep(500);
+            }
         }
 
         // подключение к серверному сокету
