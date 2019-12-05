@@ -21,6 +21,9 @@ namespace Sockets
         private List<Thread> Threads = new List<Thread>();      // список потоков приложения (кроме родительского)
         private bool _continue = true;                          // флаг, указывающий продолжается ли работа с сокетами
         private Socket ServerSocket;
+        private UdpClient udpClient;
+        private int serverUdpPort = 5000;
+        private int clientUdpPort = 5001;
         // конструктор формы
         public frmMain()
         {
@@ -44,6 +47,9 @@ namespace Sockets
             Threads.Clear();
             Threads.Add(new Thread(ReceiveMessage));
             Threads[Threads.Count - 1].Start();
+            udpClient = new UdpClient(clientUdpPort, AddressFamily.InterNetwork);
+            Threads.Add(new Thread(receive_ip));
+            Threads.Last().Start();
         }
         // работа с клиентскими сокетами
         private void ReceiveMessage()
@@ -82,7 +88,7 @@ namespace Sockets
             try
             {
                 int Port = 1010;                                // номер порта, через который выполняется обмен сообщениями
-                IPAddress sIP = IPAddress.Parse(tbIP.Text);      // разбор IP-адреса сервера, указанного в поле tbIP
+                IPAddress sIP = IPAddress.Parse(cbServerIp.Text);      // разбор IP-адреса сервера, указанного в поле tbIP
                 Client.Connect(sIP, Port);                       // подключение к серверному сокету
                 send(IP.ToString() + " << " + tbName.Text);
                 btnConnect.Enabled = false;
@@ -110,6 +116,38 @@ namespace Sockets
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             Client.Close();         // закрытие клиентского сокета
+        }
+
+
+        private void receive_ip()
+        {
+            string msg = "";
+            IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, clientUdpPort);
+            while (_continue)
+            {
+                byte[] bytes = udpClient.Receive(ref groupEP);
+                msg = System.Text.Encoding.Unicode.GetString(bytes);     // выполняем преобразование байтов в последовательность символов
+                if (msg != "")
+                {
+                    cbServerIp.Invoke((MethodInvoker)delegate
+                    {
+                        cbServerIp.Items.Add(msg);
+                        if (cbServerIp.Items.Count == 1) cbServerIp.SelectedIndex = 0;
+                    });
+                }
+
+            }
+        }
+
+        private void bLoadServerList_Click(object sender, EventArgs e)
+        {
+            cbServerIp.Items.Clear();
+            Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            IPAddress broadcast = IPAddress.Parse("10.0.129.255");
+            byte[] sendbuf = Encoding.ASCII.GetBytes(IP.ToString());
+            IPEndPoint ep = new IPEndPoint(broadcast, serverUdpPort);
+            s.SendTo(sendbuf, ep);
+            btnConnect.Enabled = true;
         }
     }
 }

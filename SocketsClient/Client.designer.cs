@@ -33,10 +33,11 @@
             this.lblIP = new System.Windows.Forms.Label();
             this.btnConnect = new System.Windows.Forms.Button();
             this.lblMessage = new System.Windows.Forms.Label();
-            this.tbIP = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbName = new System.Windows.Forms.TextBox();
             this.rtbMessages = new System.Windows.Forms.RichTextBox();
+            this.cbServerIp = new System.Windows.Forms.ComboBox();
+            this.bLoadServerList = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnSend
@@ -62,15 +63,16 @@
             this.lblIP.AutoSize = true;
             this.lblIP.Location = new System.Drawing.Point(12, 13);
             this.lblIP.Name = "lblIP";
-            this.lblIP.Size = new System.Drawing.Size(62, 26);
+            this.lblIP.Size = new System.Drawing.Size(70, 26);
             this.lblIP.TabIndex = 2;
-            this.lblIP.Text = "Введите IP\r\nсервера";
+            this.lblIP.Text = "Выберите IP\r\nсервера";
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(263, 6);
+            this.btnConnect.Enabled = false;
+            this.btnConnect.Location = new System.Drawing.Point(263, 53);
             this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(91, 67);
+            this.btnConnect.Size = new System.Drawing.Size(91, 29);
             this.btnConnect.TabIndex = 2;
             this.btnConnect.Text = "Подключиться";
             this.btnConnect.UseVisualStyleBackColor = true;
@@ -84,14 +86,6 @@
             this.lblMessage.Size = new System.Drawing.Size(65, 13);
             this.lblMessage.TabIndex = 2;
             this.lblMessage.Text = "Сообщение";
-            // 
-            // tbIP
-            // 
-            this.tbIP.Location = new System.Drawing.Point(75, 10);
-            this.tbIP.Name = "tbIP";
-            this.tbIP.Size = new System.Drawing.Size(181, 20);
-            this.tbIP.TabIndex = 0;
-            this.tbIP.Text = "127.0.0.1";
             // 
             // label1
             // 
@@ -117,14 +111,33 @@
             this.rtbMessages.TabIndex = 4;
             this.rtbMessages.Text = "";
             // 
+            // cbServerIp
+            // 
+            this.cbServerIp.FormattingEnabled = true;
+            this.cbServerIp.Location = new System.Drawing.Point(88, 13);
+            this.cbServerIp.Name = "cbServerIp";
+            this.cbServerIp.Size = new System.Drawing.Size(165, 21);
+            this.cbServerIp.TabIndex = 5;
+            // 
+            // bLoadServerList
+            // 
+            this.bLoadServerList.Location = new System.Drawing.Point(263, 13);
+            this.bLoadServerList.Name = "bLoadServerList";
+            this.bLoadServerList.Size = new System.Drawing.Size(88, 26);
+            this.bLoadServerList.TabIndex = 6;
+            this.bLoadServerList.Text = "Загрузить список";
+            this.bLoadServerList.UseVisualStyleBackColor = true;
+            this.bLoadServerList.Click += new System.EventHandler(this.bLoadServerList_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(363, 326);
+            this.Controls.Add(this.bLoadServerList);
+            this.Controls.Add(this.cbServerIp);
             this.Controls.Add(this.rtbMessages);
             this.Controls.Add(this.tbName);
-            this.Controls.Add(this.tbIP);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.lblIP);
@@ -147,10 +160,11 @@
         private System.Windows.Forms.Label lblIP;
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Label lblMessage;
-        private System.Windows.Forms.TextBox tbIP;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.RichTextBox rtbMessages;
+        private System.Windows.Forms.ComboBox cbServerIp;
+        private System.Windows.Forms.Button bLoadServerList;
     }
 }
 
